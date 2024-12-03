@@ -4,6 +4,7 @@ class_name PointsManager
 
 @onready var player = $"../Player" as Player
 @onready var points_label_scene = preload("res://Scripts/points_label.gd")
+@onready var ui = $"../UI" as UI
 
 @export var point_increment = 100
 
@@ -20,3 +21,4 @@ func on_award_points(position: Vector2):
 	label.position = position + POINTS_LABEL_OFFSET
 	label.text = "%d" % point_increment
 	points += point_increment
+	ui.set_points(points)

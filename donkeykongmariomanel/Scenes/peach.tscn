@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://6rerefe3d5ie"]
+
+[ext_resource type="Script" path="res://Scripts/peach.gd" id="1_28x3g"]
+[ext_resource type="Texture2D" uid="uid://bkokg3u2r1m31" path="res://resources/graphics/peach/peach_1.png" id="1_g6qb0"]
+[ext_resource type="Texture2D" uid="uid://ct87rtigqd262" path="res://resources/graphics/peach/peach_2.png" id="2_hhfpd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t74hb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_g6qb0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_hhfpd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7nesd"]
+size = Vector2(16, 22)
+
+[node name="Peach" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_28x3g")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_t74hb")
+animation = &"idle"
+frame_progress = 0.166177
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7nesd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

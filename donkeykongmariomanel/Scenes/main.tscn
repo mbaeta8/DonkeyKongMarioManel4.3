@@ -1,18 +1,18 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8am4ochbcebe"]
+[gd_scene load_steps=15 format=3 uid="uid://c8am4ochbcebe"]
 
 [ext_resource type="Texture2D" uid="uid://b70ljkvkymh80" path="res://resources/graphics/kong/kong_angry_1.png" id="1_8a77s"]
 [ext_resource type="Texture2D" uid="uid://ds5gb3loa6jr5" path="res://resources/graphics/kong/kong_idle.png" id="1_fcgcs"]
 [ext_resource type="PackedScene" uid="uid://dyho8mvsisyh4" path="res://Scenes/platform.tscn" id="1_ud8aa"]
 [ext_resource type="Texture2D" uid="uid://bjpxvgl8i23xs" path="res://resources/graphics/kong/kong_angry_2.png" id="2_7j2rg"]
-[ext_resource type="Texture2D" uid="uid://bkokg3u2r1m31" path="res://resources/graphics/peach/peach_1.png" id="2_sbbvf"]
 [ext_resource type="PackedScene" uid="uid://dxn8xhrfwhul7" path="res://Scenes/ladder.tscn" id="2_w6fki"]
-[ext_resource type="Texture2D" uid="uid://ct87rtigqd262" path="res://resources/graphics/peach/peach_2.png" id="3_ginoe"]
 [ext_resource type="Texture2D" uid="uid://dn8th8pc8mpli" path="res://resources/graphics/kong/kong_take_barrel_1.png" id="4_ygnlv"]
 [ext_resource type="Texture2D" uid="uid://drrmug4wabopb" path="res://resources/graphics/kong/kong_take_barrel_2.png" id="5_fc30j"]
 [ext_resource type="PackedScene" uid="uid://ccxjnqopynimt" path="res://Scenes/player.tscn" id="10_oeoac"]
 [ext_resource type="PackedScene" uid="uid://dtxomctxypvd6" path="res://Scenes/barrel_spawner.tscn" id="11_xu1x0"]
 [ext_resource type="PackedScene" uid="uid://dyqwjisfxhcja" path="res://Scenes/hammer.tscn" id="12_cnltc"]
 [ext_resource type="Script" path="res://Scripts/points_manager.gd" id="13_0dt3h"]
+[ext_resource type="PackedScene" uid="uid://6rerefe3d5ie" path="res://Scenes/peach.tscn" id="13_8plpa"]
+[ext_resource type="PackedScene" uid="uid://b7kcxerrqisch" path="res://Scenes/ui.tscn" id="14_2uiaj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1fumc"]
 animations = [{
@@ -44,20 +44,6 @@ animations = [{
 }],
 "loop": true,
 "name": &"take_barrel",
-"speed": 2.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_2myli"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_sbbvf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_ginoe")
-}],
-"loop": true,
-"name": &"idle",
 "speed": 2.0
 }]
 
@@ -344,18 +330,10 @@ scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_1fumc")
 animation = &"idle"
 
-[node name="Peach" type="AnimatedSprite2D" parent="."]
-position = Vector2(-150, -367)
-scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_2myli")
-animation = &"idle"
-autoplay = "idle"
-frame = 1
-frame_progress = 0.128872
-
-[node name="Player" parent="." instance=ExtResource("10_oeoac")]
+[node name="Player" parent="." node_paths=PackedStringArray("ui") instance=ExtResource("10_oeoac")]
 position = Vector2(-360, 375)
 scale = Vector2(4, 4)
+ui = NodePath("../UI")
 
 [node name="BarrelSpawner" parent="." instance=ExtResource("11_xu1x0")]
 position = Vector2(-291, -277)
@@ -366,3 +344,10 @@ scale = Vector2(4, 4)
 
 [node name="PointsManager" type="Node" parent="."]
 script = ExtResource("13_0dt3h")
+
+[node name="UI" parent="." instance=ExtResource("14_2uiaj")]
+
+[node name="Peach" parent="." node_paths=PackedStringArray("ui") instance=ExtResource("13_8plpa")]
+position = Vector2(-153, -367)
+scale = Vector2(4, 4)
+ui = NodePath("../UI")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ccxjnqopynimt"]
+[gd_scene load_steps=20 format=3 uid="uid://ccxjnqopynimt"]
 
 [ext_resource type="Texture2D" uid="uid://bb5fiqyiptm43" path="res://resources/graphics/mario/mario_idle.png" id="1_usmfi"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_ydfgr"]
@@ -6,10 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://cwgy4eh6od3a4" path="res://resources/graphics/mario/Mario_Hammer_Run1.png" id="3_5nnjt"]
 [ext_resource type="Texture2D" uid="uid://pvlx802oswys" path="res://resources/graphics/mario/mario_stair_2.png" id="3_hmaj2"]
 [ext_resource type="Texture2D" uid="uid://ba85r1kkvu8bp" path="res://resources/graphics/mario/Mario_Hammer_Run2.png" id="4_hp6bn"]
+[ext_resource type="Texture2D" uid="uid://dqpc40ptruv6p" path="res://resources/graphics/mario/mario_flip_4.png" id="4_t0x2y"]
+[ext_resource type="Texture2D" uid="uid://c7d5kkykj2t8q" path="res://resources/graphics/mario/mario_flip_3.png" id="5_2a0vf"]
 [ext_resource type="Texture2D" uid="uid://dynlohxirix5u" path="res://resources/graphics/mario/Mario_Hammer_Run3.png" id="5_ktgxv"]
 [ext_resource type="Texture2D" uid="uid://1iclrydiq62b" path="res://resources/graphics/mario/Mario_Hammer_Idle1.png" id="5_pu0mc"]
+[ext_resource type="Texture2D" uid="uid://beaxjmf4edo5u" path="res://resources/graphics/mario/mario_flip_2.png" id="6_0o3jm"]
 [ext_resource type="Texture2D" uid="uid://nt62wfyev0yp" path="res://resources/graphics/mario/Mario_Hammer_Idle2.png" id="6_3os1h"]
 [ext_resource type="Texture2D" uid="uid://dmn0o8tee2b1w" path="res://resources/graphics/mario/Mario_Hammer_Run4.png" id="6_6mdad"]
+[ext_resource type="Texture2D" uid="uid://di4j2jjjt57so" path="res://resources/graphics/mario/mario_flip_1.png" id="7_juooo"]
+[ext_resource type="Texture2D" uid="uid://3mnguet4qkut" path="res://resources/graphics/mario/mario_die.png" id="8_4isre"]
 [ext_resource type="Texture2D" uid="uid://damlqunanv122" path="res://resources/graphics/Hammer.png" id="9_sp5b1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_opv8h"]
@@ -23,6 +28,26 @@ animations = [{
 }],
 "loop": true,
 "name": &"climb",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_t0x2y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2a0vf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0o3jm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_juooo")
+}, {
+"duration": 6.0,
+"texture": ExtResource("8_4isre")
+}],
+"loop": false,
+"name": &"die",
 "speed": 5.0
 }, {
 "frames": [{
@@ -97,8 +122,7 @@ script = ExtResource("1_ydfgr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_opv8h")
-animation = &"run_hammer"
-frame_progress = 0.511592
+animation = &"die"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_alukt")
@@ -126,4 +150,5 @@ shape = SubResource("RectangleShape2D_26b6h")
 wait_time = 7.0
 one_shot = true
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="HammerCollision" to="." method="_on_hammer_collision_body_entered"]

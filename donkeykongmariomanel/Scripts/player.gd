@@ -9,6 +9,7 @@ const JUMP_VELOCITY = -400.0
 const HAMMER_ROTATION_ORIGIN = Vector2(0, -3)
 
 @export var climbing_speed = 250
+@export var ui: UI
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D as AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -25,13 +26,18 @@ var platform_underneart_the_player = null
 var last_barrel_id = null
 var has_hammer = false
 var hammer_start_position
+var is_dead = false
+
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	hammer_start_position = hammer.position
 	hammer_timer.timeout.connect(on_hammer_timer_timeout)
 	animated_sprite_2d.frame_changed.connect(on_sprite_frames_changed)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta):
+	if is_dead:
+		return
 	# Add the gravity.
 	if not is_on_floor() && !is_on_ladder:
 		velocity += get_gravity() * delta
@@ -89,6 +95,9 @@ func handle_movement_collision():
 		var collision_degrees = roundf(rad_to_deg(collision.get_angle()))
 		if collision_degrees == 90:
 			position.y -= 8
+	
+	if collider is Barrel && !is_dead:
+		die()
 	
 	return collision
 
@@ -162,3 +171,14 @@ func get_hammer_rotation_angle(frame_index):
 func _on_hammer_collision_body_entered(body):
 	award_points.emit(body.global_position)
 	body.queue_free()
+
+func die():
+	is_dead = true
+	gravity = 0
+	set_collision_layer_value(1, false)
+	animated_sprite_2d.play("die")
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if animated_sprite_2d.animation == "die":
+		ui.show_lose_ui()
