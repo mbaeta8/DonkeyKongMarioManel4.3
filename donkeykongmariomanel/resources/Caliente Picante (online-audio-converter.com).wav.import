@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://coskir4tt31dy"
+path="res://.godot/imported/Caliente Picante (online-audio-converter.com).wav-5807593cfe5dd70e8ee68085c42b572d.sample"
+
+[deps]
+
+source_file="res://resources/Caliente Picante (online-audio-converter.com).wav"
+dest_files=["res://.godot/imported/Caliente Picante (online-audio-converter.com).wav-5807593cfe5dd70e8ee68085c42b572d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
