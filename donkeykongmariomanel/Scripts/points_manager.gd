@@ -3,7 +3,7 @@ extends Node
 class_name PointsManager
 
 @onready var player = $"../Player" as Player
-@onready var points_label_scene = preload("res://Scripts/points_label.gd")
+@onready var points_label_scene = preload("res://Scenes/points_label.tscn")
 @onready var ui = $"../UI" as UI
 
 @export var point_increment = 100
